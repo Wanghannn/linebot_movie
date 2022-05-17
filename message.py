@@ -102,7 +102,6 @@ def Confirm_Template():
     return message
 
 #旋轉木馬按鈕訊息介面
-
 def Carousel_Template():
     message = TemplateSendMessage(
         alt_text='一則旋轉木馬按鈕訊息',
@@ -211,6 +210,7 @@ def image_carousel_message1():
 
 #關於LINEBOT聊天內容範例
 
+# 我們自己的城市
 def choose_funtion():
     message = TemplateSendMessage(
         alt_text='第一步驟！！！',
