@@ -210,3 +210,36 @@ def image_carousel_message1():
     return message
 
 #關於LINEBOT聊天內容範例
+
+def choose_funtion():
+    message = TemplateSendMessage(
+        alt_text='第一步驟！！！',
+        template=ButtonsTemplate(
+            thumbnail_image_url="https://s.yimg.com/ny/api/res/1.2/gYptwTe_GuD1aZN_DmlCTw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0NztjZj13ZWJw/https://s.yimg.com/uu/api/res/1.2/0QivNJNruxR08UT8.qIfVw--~B/aD02MTk7dz05MTg7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/ko/cts.com.tw/a9ff7f108a81a2b8192980951465d87d",
+            title="今天想查詢什麼？",
+            text="選擇今天要查詢的項目",
+            actions=[
+                MessageTemplateAction(
+                    label="1. 查詢本週新片",
+                    text="我要看本週新片"
+                ),
+                MessageTemplateAction(
+                    label="2. 查詢排行榜",
+                    text="我要看排行榜"
+                ),
+                MessageTemplateAction(
+                    label="3. 我要選影廳",
+                    text="有哪些影廳可以選？"
+                ),
+                MessageTemplateAction(
+                    label="4. 我要看電影",
+                    text="有什麼電影可以看呢？"
+                ),
+                URITemplateAction(
+                    label="直接線上查詢",
+                    uri="https://movies.yahoo.com.tw/index.html"
+                )
+            ]
+        )
+    )
+    return message
