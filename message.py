@@ -70,10 +70,6 @@ def buttons_message():
                     label="看抽獎品項",
                     text="有哪些抽獎品項呢？"
                 ),
-                MessageTemplateAction(
-                    label="看抽獎品項",
-                    text="有哪些抽獎品項呢？"
-                ),
                 URITemplateAction(
                     label="免費註冊享回饋",
                     uri="https://tw.shop.com/nbts/create-myaccount.xhtml?returnurl=https%3A%2F%2Ftw.shop.com%2F"
@@ -238,10 +234,6 @@ def choose_funtion():
                 MessageTemplateAction(
                     label="4. 我要看電影",
                     text="有什麼電影可以看呢？"
-                ),
-                URITemplateAction(
-                    label="直接線上查詢",
-                    uri="https://movies.yahoo.com.tw/index.html"
                 )
             ]
         )
