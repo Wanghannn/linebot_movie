@@ -37,7 +37,7 @@ def choose_template():
     message = TemplateSendMessage(
         alt_text='第一步驟！！',
         template=ButtonsTemplate(
-            thumbnail_image_url="https://pic2.zhimg.com/v2-de4b8114e8408d5265503c8b41f59f85_b.jpg",
+            thumbnail_image_url="https://s.yimg.com/ny/api/res/1.2/gYptwTe_GuD1aZN_DmlCTw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTY0NztjZj13ZWJw/https://s.yimg.com/uu/api/res/1.2/0QivNJNruxR08UT8.qIfVw--~B/aD02MTk7dz05MTg7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/ko/cts.com.tw/a9ff7f108a81a2b8192980951465d87d",
             title="今天想查詢什麼？",
             text="選擇今天要查詢的項目",
             actions=[
