@@ -49,6 +49,7 @@ def callback():
 def handle_message(event):
     msg = event.message.text
     list = choose()
+    emoji_list = emoji()
 
     if 'imagemap_message' in msg:
         message = imagemap_message()
@@ -70,7 +71,11 @@ def handle_message(event):
         message = choose_template()
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in list:
-        message = choose_funtion(msg)
+        message_sent = choose_funtion(msg)
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
+    elif 'emoji_test' == msg:
+        message = TextSendMessage(text='$ LINE emoji $', emojis=emoji)
         line_bot_api.reply_message(event.reply_token, message)
     else:
         message = TextSendMessage(text=msg)

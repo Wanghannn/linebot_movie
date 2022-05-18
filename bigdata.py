@@ -5,12 +5,26 @@ from linebot.models import *
 
 # 基本定義
 choose_msg = ['我要看本週新片', '我要看排行榜', '有哪些影廳可以選？', '有什麼電影可以看呢？']
-
+emoji_list = [
+    {
+        "index": 0,
+        "productId": "5ac1bfd5040ab15980c9b435",
+        "emojiId": "001"
+    },
+    {
+        "index": 13,
+        "productId": "5ac1bfd5040ab15980c9b435",
+        "emojiId": "002"
+    }
+]
 
 #======回傳給主程式======
 
 def choose():
     return choose_msg
+
+def emoji():
+    return emoji_list
 
 #======回傳給主程式======
 
