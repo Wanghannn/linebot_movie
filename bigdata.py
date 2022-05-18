@@ -3,6 +3,10 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
+#======這裡是呼叫的檔案內容=====
+from webcrawler import *
+#======這裡是呼叫的檔案內容=====
+
 # 基本定義
 choose_msg = ['我要看本週新片', '我要看排行榜', '有哪些影廳可以選？', '有什麼電影可以看呢？']
 emoji_list = [
@@ -66,13 +70,13 @@ def choose_template():
 def choose_funtion(msg):
     message = ""
     if msg == choose_msg[0]:
-        message = "提供新片列表"
+        message = grt_newmovie()
     elif msg == choose_msg[1]:
-        message = "提供排名列表"
+        message = grt_rankmovie()
     elif msg == choose_msg[2]:
-        message = "提供當天可看電影及時間"
+        message = get_theater()
     elif msg == choose_msg[3]:
-        message = "提供當天播映影廳及時間"
+        message = grt_allmovie()
     else:
         message = "出錯了QQ"
     return message
