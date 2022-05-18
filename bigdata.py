@@ -3,8 +3,23 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import *
 
-# 我們自己的程式
-def choose_funtion():
+# 基本定義
+choose_msg = ['我要看本週新片', '我要看排行榜', '有哪些影廳可以選？', '有什麼電影可以看呢？']
+
+
+#======回傳給主程式======
+
+def choose():
+    return choose_msg
+
+#======回傳給主程式======
+
+
+
+#======我們自己的Function==========
+
+# 輸入 “電影”
+def choose_template():
     message = TemplateSendMessage(
         alt_text='第一步驟！！',
         template=ButtonsTemplate(
@@ -14,21 +29,38 @@ def choose_funtion():
             actions=[
                 MessageTemplateAction(
                     label="1. 查詢本週新片",
-                    text="我要看本週新片"
+                    text=choose_msg[0]
                 ),
                 MessageTemplateAction(
                     label="2. 查詢排行榜",
-                    text="我要看排行榜"
+                    text=choose_msg[1]
                 ),
                 MessageTemplateAction(
                     label="3. 我要選影廳",
-                    text="有哪些影廳可以選？"
+                    text=choose_msg[2]
                 ),
                 MessageTemplateAction(
                     label="4. 我要看電影",
-                    text="有什麼電影可以看呢？"
+                    text=choose_msg[3]
                 )
             ]
         )
     )
     return message
+
+# 選擇查詢
+def choose_funtion(msg):
+    message = ""
+    if msg == choose_msg[0]:
+        message = "提供新片列表"
+    elif msg == choose_msg[1]:
+        message = "提供排名列表"
+    elif msg == choose_msg[2]:
+        message = "提供當天可看電影及時間"
+    elif msg == choose_msg[3]:
+        message = "提供當天播映影廳及時間"
+    else:
+        message = "出錯了QQ"
+    return message
+
+#======我們自己的程式==========

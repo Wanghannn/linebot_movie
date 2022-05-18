@@ -48,6 +48,8 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
+    list = choose()
+
     if 'imagemap_message' in msg:
         message = imagemap_message()
         line_bot_api.reply_message(event.reply_token, message)
@@ -65,7 +67,10 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     # 我們自己的功能
     elif '電影' == msg:
-        message = choose_funtion()
+        message = choose_template()
+        line_bot_api.reply_message(event.reply_token, message)
+    elif msg in list:
+        message = choose_funtion(msg)
         line_bot_api.reply_message(event.reply_token, message)
     else:
         message = TextSendMessage(text=msg)
