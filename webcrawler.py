@@ -13,7 +13,7 @@ def newmovie_crawler(newmovie_list, page):
         newmovie_list.append(newmovie)
     if len(newmovie_soup.find_all('li', class_='nexttxt disabled')) == 0:
         page += 1
-        newmovie_crawler(page)
+        newmovie_crawler(newmovie_list, page)
     else:
         newmovie_dict = dict(zip(list(range(1, 50)), newmovie_list))
 
@@ -45,7 +45,6 @@ def get_rankmovie():
     rank_list.append(rank_first.text.strip())
     rank_list += list(map(lambda rank_others: rank_others.text.strip(), rank_others))
     rank_dict = dict(zip(list(range(1, 21)), rank_list))
-    
     list_item = rank_dict.items()
     for id, name in list_item:
         msg += ("\n[%s] %s" % (id, name)) 
