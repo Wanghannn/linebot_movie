@@ -1,6 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import pandas as pd
 
 #========本週新片======== https://movies.yahoo.com.tw/movie_thisweek.html
 
@@ -12,10 +11,10 @@ def crawler(newmovie_list, page):
     newmovie = i.find('div', 'release_movie_name').a.text.strip()
     newmovie_list.append(newmovie)
   if len(newmovie_soup.find_all('li', class_='nexttxt disabled')) == 0:
-    page+=1
+    page += 1
     crawler(newmovie_list, page)
   else:
-    newmovie_dict = dict(zip(list(range(1,50)), newmovie_list))
+    newmovie_dict = dict(zip(list(range(1, 50)), newmovie_list))
     return newmovie_dict
 
 def grt_newmovie():
