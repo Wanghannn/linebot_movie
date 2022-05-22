@@ -70,13 +70,13 @@ def choose_template():
 def choose_funtion(msg):
     message = ""
     if msg == choose_msg[0]:
-        message = grt_newmovie()
+        message = get_newmovie()
     elif msg == choose_msg[1]:
-        message = grt_rankmovie()
+        message = get_rankmovie()
     elif msg == choose_msg[2]:
         message = get_theater()
     elif msg == choose_msg[3]:
-        message = grt_allmovie()
+        message = get_allmovie()
     else:
         message = "出錯了QQ"
     return message
