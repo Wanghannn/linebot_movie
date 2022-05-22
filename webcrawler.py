@@ -15,7 +15,7 @@ def newmovie_crawler(newmovie_list, page):
         page += 1
         newmovie_crawler(newmovie_list, page)
     else:
-        newmovie_dict = dict(zip(list(range(1, 50)), newmovie_list))
+        newmovie_dict = dict(zip(list(range(1, 21)), newmovie_list))
 
 def get_newmovie():
     msg = '以下是本週新片：\n（可直接輸入[電影ID]查詢場次）'
@@ -36,10 +36,10 @@ def get_rankmovie():
     #爬蟲爬出來
     # list_rankmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     rank_list = []
-    re = requests.get('https://movies.yahoo.com.tw/chart.html')
-    soup = BeautifulSoup(re.text, 'html.parser')
-    spans = soup.find_all('div', class_='rank_list table rankstyle1')
-    for i in spans:
+    rank_re = requests.get('https://movies.yahoo.com.tw/chart.html')
+    rank_soup = BeautifulSoup(rank_re.text, 'html.parser')
+    rank_spans = rank_soup.find_all('div', class_='rank_list table rankstyle1')
+    for i in rank_spans:
         rank_first = i.find('h2')
         rank_others = i.find_all(class_='rank_txt')
     rank_list.append(rank_first.text.strip())
