@@ -31,8 +31,10 @@ handler = WebhookHandler('110f9e33ec37530666ae272feca3aff7')
 movie = ""
 city = ""
 date = ""
+cinema = ""
 list_date = []
 list_city = []
+list_cinema = []
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -53,7 +55,7 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global movie, city, date, list_city, list_date
+    global movie, city, date, cinema, list_city, list_date, list_cinema
     msg = event.message.text
     # if 'imagemap_message' in msg:
     #     message = imagemap_message()
@@ -77,12 +79,14 @@ def handle_message(event):
         movie = ""
         city = ""
         date = ""
+        cinema = ""
         message = choose_template()
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in choose():
         message_sent = choose_funtion(msg)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
+    # 輸入 Movie
     elif msg in getAllMovie(): # 4-1 比對使用者是否輸入正確“電影” -> 回傳全部地區（爬蟲有問題無法針對電影篩選）
         movie = msg
         if movie != "" and city != "" and date != "":
@@ -91,14 +95,33 @@ def handle_message(event):
             message_sent, list_city = get_city_msg()
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in list_city: # 4-2 比對使用者是否輸入正確“地區” -> 回傳可看日期
+    # 輸入 City
+    elif msg in getAllCity(): 
         city = msg
-        if movie != "" and city != "" and date != "":
+        # 四種情況
+        # 3-1-1 比對使用者是否輸入正確“地區” -> 回傳可選擇的影廳
+        if movie == "" and date == "" and cinema == "":
+            message_sent, list_cinema = get_cinema(city)
+        # 3-1-2 直接查詢get_movie_time
+        elif movie == "" and date == "" and cinema != "":
+            message_sent = get_movie_time(city, cinema)
+        # 4-2-1 比對使用者是否輸入正確“地區” -> 回傳可看日期
+        elif movie != "" and date == "" and cinema == "":
+            message_sent, list_date = get_date(movie)
+        # 4-2-2 直接查詢get_cinema_time
+        elif movie != "" and date != "" and cinema == "":
             message_sent = get_cinema_time(movie, city, date)
         else:
-            message_sent, list_date = get_date(movie)
+            message_sent = "邏輯錯了QQ"
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
+    # 輸入 cinema
+    elif msg in list_cinema:# 3-2 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
+        cinema = msg
+        message_sent = get_movie_time(city, cinema)
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
+    # 輸入 Date
     elif msg in list_date: # 4-3 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
         date = msg
         message_sent = get_cinema_time(movie, city, date)

@@ -55,15 +55,55 @@ def get_rankmovie():
 
 
 #========影廳列表========
-def get_theater():
-    msg = '請輸入想去的[影廳ID]：'
-    #爬蟲爬出來
-    dict_theater = {'id:1':'國賓影城(台北長春廣場)', 'id:2':'欣欣秀泰影城', 'id:3':'...'}
-    
-    list_item = dict_theater.items()
-    for id, name in list_item:
-        msg += ("\n[%s] %s" % (id, name)) 
-    return msg
+def get_cinema():
+    global places_id, cinema_id
+    places_id, cinema_id = places()
+    list_city = list(places_id.keys())
+    msg = '請輸入想去的影廳所在[地區]\n====================：'
+    list_item = places_id.items()
+    for name, id in list_item:
+        msg += ("\n%s" % (name)) 
+    return msg, list_city
+
+def get_theater(city):
+    list_cinema = list(cinema_id[city].keys())
+    msg = "請輸入想查詢的[影廳]\n===================="
+    for cinema in cinema_id[city].keys():
+        msg += "\n" + cinema
+    return msg, list_cinema
+
+# 輸入（地區、影廳），回傳（該影廳當日播映電影＆播映時間）
+def get_movie_time(city, cinema):
+    """
+    choose city -> choose theater -> output: all the movie shown in cinemas
+    lst: movie time, lst=[(movie,[time]), ]
+    """
+    lst = []
+    soup = read_url('https://movies.yahoo.com.tw/theater_result.html/id='+cinema_id[city][cinema])
+    movies = soup.find_all('div', class_='release_info_text')
+    if movies:
+        for movie in movies:
+            name = movie.find('div', class_='theaterlist_name').a.text
+            time = []
+            for i in movie.select('.theater_time > li'):
+                time.append(i.text)
+            lst.append((name, time))
+
+        # print the movie and its play time
+        msg = "{}\t{}\n".format(city, cinema)
+        msg += "====================" 
+        for i in lst:
+            msg += "\n" + (i[0])     # movie
+            for j in i[1]:           # time
+                j = j.replace("\n", "")
+                j = j.replace(" ", "")
+                msg += "\n" + (j)
+            msg += "\n===================="
+    else:
+        msg = ("抱歉！\n{}-{} 今日沒有播映電影\n請選擇其他[地區]或[影城]".format(city, cinema))
+        msg += "\n===================="
+        
+    return msg + "\n重置查詢請輸入:電影"
 #=======================
 
 
@@ -104,7 +144,8 @@ def get_cinema_time(movie, city, search_date):
     json_data = resp.json()
     soup = BeautifulSoup(json_data['view'], 'lxml')
     html_elem = soup.find_all("ul", attrs={'data-theater_name': re.compile(".*")})
-    msg = "===================="
+    msg = "{}\t{}\n{}\n".format(date, city, movie)
+    msg += "===================="
     if html_elem:
         for the in html_elem:
             theater = the.find("li", attrs={"class": "adds"})
@@ -115,9 +156,10 @@ def get_cinema_time(movie, city, search_date):
                 msg += "\n" + (i["data-movie_time"])
             msg += "\n===================="
     else:
-        msg += ("抱歉！\n{} {} 目前沒有在{}的影廳播映\n請選擇其他[地區]、[時間]或[電影]".format(date, movie, city))
+        msg = ("抱歉！\n{}\n {}\n目前沒有在{}的影廳播映資訊\n請選擇其他[地區]、[時間]或[電影]".format(date, movie, city))
+        msg += "\n===================="
         
-    return msg + "重置查詢請輸入:電影"
+    return msg + "\n重置查詢請輸入:電影"
 #=======================
 
 
@@ -203,4 +245,11 @@ def get_date(movie):
     # search_date = input('choose a date you would like to search').split()
     # date = '2022-{}-{}'.format(str('%02d' % num[search_date[0]]), search_date[1])
     return msg, list_date
+
+# 取得地區列表
+def getAllCity():
+    global places_id, cinema_id
+    places_id, cinema_id = places()
+    list_city = list(places_id.keys())
+    return list_city
 #==================================
