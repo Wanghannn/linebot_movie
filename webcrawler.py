@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from collections import defaultdict
+import re
 
 #========本週新片======== https://movies.yahoo.com.tw/movie_thisweek.html
-
 def newmovie_crawler(newmovie_list, page):
     global newmovie_dict
     newmovie_re = requests.get('https://movies.yahoo.com.tw/movie_thisweek.html?page=' + str(page))
@@ -67,13 +68,49 @@ def get_theater():
 
 #========電影列表========
 def get_allmovie():
+    global all_movie_id
+    all_movie_id = all_movie()
     msg = '請輸入想看的[電影ID]'
     #爬蟲爬出來
-    list_allmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
-    
-    list_item = list_allmovie.items()
+    #list_allmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
+    list_item = all_movie_id.items()
     for id, name in list_item:
-        msg += ("\n[%s] %s" % (id, name)) 
+        msg += ("\n %s" % (name)) 
     return msg
 #=======================
 
+
+#========查詢3、4相關Function========
+
+# 基本參數
+movies_id = {}
+all_movie_id = {}
+cinema_id = defaultdict(dict)
+places_id = {}
+num = {
+    '一月': 1,
+    '二月': 2,
+    '三月': 3,
+    '四月': 4,
+    '五月': 5,
+    '六月': 6,
+    '七月': 7,
+    '八月': 8,
+    '九月': 9,
+    '十月': 10,
+    '十一月': 11,
+    '十二月': 12
+}
+
+# 取得所有Movie dict(參數：all_movie_id)
+def all_movie():
+    url = 'https://movies.yahoo.com.tw/ajax/in_theater_movies'
+    resp = requests.get(url)
+    resp.encoding = 'utf-8'
+    json_data = resp.json()
+    for number, movie in json_data.items():
+        all_movie_id[movie] = number
+    return all_movie_id
+
+ #        
+#==================================

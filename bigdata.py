@@ -30,6 +30,9 @@ def choose():
 def emoji():
     return emoji_list
 
+def getAllMovie():
+    movie_list = list(all_movie().keys())
+    return movie_list
 #======回傳給主程式======
 
 

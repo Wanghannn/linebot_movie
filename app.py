@@ -71,6 +71,10 @@ def handle_message(event):
         message_sent = choose_funtion(msg)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
+    elif msg in getAllMovie(): # 比對使用者是否輸入正確電影
+        message_sent = msg + ' 有在list裡面'
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
     elif 'emoji_test' == msg:
         message = TextSendMessage(text='$ LINE emoji $', emojis=emoji())
         line_bot_api.reply_message(event.reply_token, message)
