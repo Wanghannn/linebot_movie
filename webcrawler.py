@@ -55,7 +55,7 @@ def get_rankmovie():
 
 
 #========影廳列表========
-def get_cinema():
+def get_city():
     global places_id, cinema_id
     places_id, cinema_id = places()
     list_city = list(places_id.keys())
@@ -65,12 +65,11 @@ def get_cinema():
         msg += ("\n%s" % (name)) 
     return msg, list_city
 
-def get_theater(city):
-    list_cinema = list(cinema_id[city].keys())
+def get_cinema(city):
     msg = "請輸入想查詢的[影廳]\n===================="
     for cinema in cinema_id[city].keys():
         msg += "\n" + cinema
-    return msg, list_cinema
+    return msg
 
 # 輸入（地區、影廳），回傳（該影廳當日播映電影＆播映時間）
 def get_movie_time(city, cinema):
