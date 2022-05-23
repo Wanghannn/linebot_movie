@@ -20,7 +20,7 @@ def newmovie_crawler(newmovie_list, page):
         newmovie_dict = dict(zip(list(range(1, 21)), newmovie_list))
 
 def get_newmovie():
-    msg = '以下是本週新片：\n（可直接輸入[電影ID]查詢場次）'
+    msg = '以下是本週新片\n===================='
     #爬蟲爬出來
     # list_newmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     newmovie_list = []
@@ -34,7 +34,7 @@ def get_newmovie():
 
 #========排行榜========== https://movies.yahoo.com.tw/chart.html
 def get_rankmovie():
-    msg = '以下是今日排行榜：\n（可直接輸入[電影ID]查詢場次）'
+    msg = '以下是今日排行榜\n===================='
     #爬蟲爬出來
     # list_rankmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     rank_list = []
@@ -58,7 +58,7 @@ def get_rankmovie():
 def get_city():
     global places_id, cinema_id
     places_id, cinema_id = places()
-    msg = '請輸入想去的影廳所在[地區]\n====================：'
+    msg = '請輸入想去的影廳所在[地區]\n===================='
     list_item = places_id.items()
     for name, id in list_item:
         msg += ("\n%s" % (name)) 
@@ -150,7 +150,7 @@ def get_cinema_time(movie, city, search_date):
     if html_elem:
         for the in html_elem:
             theater = the.find("li", attrs={"class": "adds"})
-            msg += ("\n電影院： {}".format(theater.find("a").text))
+            msg += ("\n{}".format(theater.find("a").text))
             # info裡面分別包含每一間戲院的場次資訊
             info = the.find_all(class_="gabtn")
             for i in info:
