@@ -147,18 +147,18 @@ def get_city(movie):
         'dnt': '1',
         'mv-authorization': '21835b082e15b91a69b3851eec7b31b82ce82afb',
         'referer': 'https://movies.yahoo.com.tw/',
-        'user-agent': 'Firefox browser\'s user-agent',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 Edg/83.0.478.56',
     }
     url = 'https://movies.yahoo.com.tw/api/v1/areas_by_movie_theater'
     payload = {'movie_id': all_movie_id[movie]}
     resp = requests.get(url, params=payload, headers=headers)
     resp.encoding = 'utf-8'
-    msg = '請輸入想看電影的[地區]\n===================='
-    print("test: resp.json()")
-    print(resp.json())
-    for cities in resp.json():
-        print("test: resp.json()")
-        msg += ("\n%s" % (cities['title'])) 
+    msg = '請輸入想看電影的[地區]\n====================\n'+resp.status_code
+    print("test: resp.status_code")
+    print(resp.status_code)
+    # for cities in resp.json():
+    #     print("test: resp.json()")
+    #     msg += ("\n%s" % (cities['title'])) 
     return msg   
 
 # 取得電影可看“日期”列表
