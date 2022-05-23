@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from collections import defaultdict
 import re
+from fake_useragent import UserAgent
 
 #========本週新片======== https://movies.yahoo.com.tw/movie_thisweek.html
 def newmovie_crawler(newmovie_list, page):
@@ -130,6 +131,9 @@ def get_city(movie):
         return "get_city() Error"
     # choose city
     # headers
+    # ua = UserAgent()
+    # user_agent = ua.safari
+    # headers = {'User-Agent': user_agent}
     headers = {
         'authority': 'movies.yahoo.com.tw',
         'method': 'GET',
@@ -143,7 +147,7 @@ def get_city(movie):
         'dnt': '1',
         'mv-authorization': '21835b082e15b91a69b3851eec7b31b82ce82afb',
         'referer': 'https://movies.yahoo.com.tw/',
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 Edg/83.0.478.56',
+        'user-agent': 'Firefox browser\'s user-agent',
     }
     url = 'https://movies.yahoo.com.tw/api/v1/areas_by_movie_theater'
     payload = {'movie_id': all_movie_id[movie]}

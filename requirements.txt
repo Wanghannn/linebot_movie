@@ -3,6 +3,8 @@ flask
 beautifulsoup4
 bs4
 requests
+useragent
+fake-useragent
 # defaultdict
 # collections
 # re
