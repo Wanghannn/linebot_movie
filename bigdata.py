@@ -77,7 +77,7 @@ def choose_funtion(msg):
     elif msg == choose_msg[1]:
         message = get_rankmovie()
     elif msg == choose_msg[2]:
-        message = get_theater()
+        message = get_city()
     elif msg == choose_msg[3]:
         message = get_allmovie()
     else:
