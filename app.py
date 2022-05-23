@@ -27,6 +27,9 @@ line_bot_api = LineBotApi('PYmA6HohelmsYT68pbad1kY4gO1DkzVVih9o4/q/kPS7LEW5C2Lry
 # Channel Secret
 handler = WebhookHandler('110f9e33ec37530666ae272feca3aff7')
 
+# 自訂參數
+movie = ""
+date = []
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -71,8 +74,17 @@ def handle_message(event):
         message_sent = choose_funtion(msg)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in getAllMovie(): # 比對使用者是否輸入正確電影
-        message_sent = msg + ' 有在list裡面'
+    elif msg in getAllMovie(): # 比對使用者是否輸入正確“電影” -> 回傳可看地區
+        movie = msg
+        message_sent = get_city(msg)
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
+    elif msg in get_city(movie): # 比對使用者是否輸入正確“地區” -> 回傳可看日期
+        message_sent, date = get_date(movie)
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
+    elif msg in date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
+        message_sent = "目前成功"
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
     elif 'emoji_test' == msg:
