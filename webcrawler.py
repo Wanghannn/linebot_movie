@@ -113,6 +113,14 @@ num = {
     '十二月': 12
 }
 
+# 讀取url
+def read_url(url):
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    html = response.text
+    soup = BeautifulSoup(html, parser='html.parser', features='lxml')
+    return soup
+
 # 取得所有Movie dict(參數：all_movie_id)
 def all_movie():
     url = 'https://movies.yahoo.com.tw/ajax/in_theater_movies'

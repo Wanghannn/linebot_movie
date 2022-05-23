@@ -28,6 +28,7 @@ line_bot_api = LineBotApi('PYmA6HohelmsYT68pbad1kY4gO1DkzVVih9o4/q/kPS7LEW5C2Lry
 handler = WebhookHandler('110f9e33ec37530666ae272feca3aff7')
 
 # 自訂參數
+global movie, date, list_city
 movie = ""
 date = []
 list_city = []
