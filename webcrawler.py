@@ -77,6 +77,15 @@ def get_allmovie():
     for name, id in list_item:
         msg += ("\n%s" % (name)) 
     return msg
+
+def get_city_msg(movie):
+    global all_city_id
+    all_city_id = get_city(movie)
+    msg = '請輸入想看電影的[地區]\n===================='
+    list_item = all_city_id.items()
+    for name, id in list_item:
+        msg += ("\n%s" % (name)) 
+    return msg
 #=======================
 
 
@@ -139,11 +148,13 @@ def get_city(movie):
     url = 'https://movies.yahoo.com.tw/api/v1/areas_by_movie_theater'
     payload = {'movie_id': all_movie_id[movie]}
     resp = requests.get(url, params=payload, headers=headers)
+    resp.encoding = 'utf-8'
     msg = '請輸入想看電影的[地區]\n===================='
-    i = 0
+    print("test: resp.json()")
+    print(resp.json())
     for cities in resp.json():
-        i += 1
-        msg += str(i)
+        print("test: resp.json()")
+        msg += ("\n%s" % (cities['title'])) 
     return msg   
 
 # 取得電影可看“日期”列表
