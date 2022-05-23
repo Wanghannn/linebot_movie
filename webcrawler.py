@@ -75,7 +75,7 @@ def get_allmovie():
     #list_allmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     list_item = all_movie_id.items()
     for name, id in list_item:
-        msg += ("\n %s" % (name)) 
+        msg += ("\n%s" % (name)) 
     return msg
 #=======================
 
@@ -140,8 +140,8 @@ def get_city(movie):
     payload = {'movie_id': all_movie_id[movie]}
     resp = requests.get(url, params=payload, headers=headers)
     msg = '請輸入想看電影的[地區]\n===================='
-    # for cities in resp.json():
-    #     msg += ("\n %s" % (cities['title'])) 
+    for cities in resp.json():
+        msg += ("\n%s" % (cities['title']))  
     return msg   
 
 # 取得電影可看“日期”列表
