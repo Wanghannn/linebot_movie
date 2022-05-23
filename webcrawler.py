@@ -153,7 +153,7 @@ def get_city(movie):
     payload = {'movie_id': all_movie_id[movie]}
     resp = requests.get(url, params=payload, headers=headers)
     resp.encoding = 'utf-8'
-    msg = '請輸入想看電影的[地區]\n====================\n'+resp.status_code
+    msg = '請輸入想看電影的[地區]\n====================\n'+str(resp.status_code)
     print("test: resp.status_code")
     print(resp.status_code)
     # for cities in resp.json():
