@@ -6,7 +6,7 @@ import re
 #========本週新片======== https://movies.yahoo.com.tw/movie_thisweek.html
 def newmovie_crawler(newmovie_list, page):
     global newmovie_dict
-    newmovie_re = requests.get('https://movies.yahoo.com.tw/movie_thisweek.html?page=' + str(page))
+    newmovie_re=requests.get('https://movies.yahoo.com.tw/movie_thisweek.html?page=' + str(page))
     newmovie_soup = BeautifulSoup(newmovie_re.text, 'html.parser')
     newmovie_spans = newmovie_soup.find_all('div', class_='release_info_text')
     for i in newmovie_spans:
