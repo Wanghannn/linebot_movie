@@ -3,6 +3,6 @@ flask
 beautifulsoup4
 bs4
 requests
-defaultdict
-collections
-re
+# defaultdict
+# collections
+# re
