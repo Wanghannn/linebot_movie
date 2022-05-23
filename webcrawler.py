@@ -17,7 +17,7 @@ def newmovie_crawler(newmovie_list, page):
     else:
         newmovie_dict = dict(zip(list(range(1, 21)), newmovie_list))
 
-def grt_newmovie():
+def get_newmovie():
     msg = '以下是本週新片：\n（可直接輸入[電影ID]查詢場次）'
     #爬蟲爬出來
     # list_newmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
@@ -31,7 +31,7 @@ def grt_newmovie():
 
 
 #========排行榜========== https://movies.yahoo.com.tw/chart.html
-def grt_rankmovie():
+def get_rankmovie():
     msg = '以下是今日排行榜：\n（可直接輸入[電影ID]查詢場次）'
     #爬蟲爬出來
     # list_rankmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
@@ -66,7 +66,7 @@ def get_theater():
 
 
 #========電影列表========
-def grt_allmovie():
+def get_allmovie():
     msg = '請輸入想看的[電影ID]'
     #爬蟲爬出來
     list_allmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
