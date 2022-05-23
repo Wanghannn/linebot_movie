@@ -140,8 +140,8 @@ def get_city(movie):
     payload = {'movie_id': all_movie_id[movie]}
     resp = requests.get(url, params=payload, headers=headers)
     msg = '請輸入想看電影的[地區]\n===================='
-    for cities in resp.json():
-        msg += ("\n %s" % (cities['title'])) 
+    # for cities in resp.json():
+    #     msg += ("\n %s" % (cities['title'])) 
     return msg   
 
 # 取得電影可看“日期”列表
