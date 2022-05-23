@@ -76,11 +76,11 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in getAllMovie(): # 比對使用者是否輸入正確“電影” -> 回傳可看地區
         movie = msg
-        message_sent = get_city(msg)
+        message_sent = "msg in getAllMovie() " + movie #get_city(msg)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in get_city(movie): # 比對使用者是否輸入正確“地區” -> 回傳可看日期
-        message_sent, date = get_date(movie)
+        message_sent, date = "msg in get_city(movie) " + movie #get_date(movie)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
