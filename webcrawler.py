@@ -88,6 +88,36 @@ def get_city_msg():
     for name, id in list_item:
         msg += ("\n%s" % (name)) 
     return msg, list_city
+
+# 輸入（電影、地區、時間），回傳（該地區影廳＆播映時間）
+def get_cinema_time(movie, city, search_date):
+    url = "https://movies.yahoo.com.tw/ajax/pc/get_schedule_by_movie"
+    search_date = search_date.split()
+    date = '2022-{}-{}'.format(str('%02d' % num[search_date[0]]), search_date[1])
+    payload = {'movie_id': all_movie_id[movie],
+               'date': date,
+               'area_id': places_id[city],
+               'theater_id': '',
+               'datetime': '',
+               'movie_type_id': ''}
+    resp = requests.get(url, params=payload)
+    json_data = resp.json()
+    soup = BeautifulSoup(json_data['view'], 'lxml')
+    html_elem = soup.find_all("ul", attrs={'data-theater_name': re.compile(".*")})
+    msg = ""
+    if html_elem:
+        for the in html_elem:
+            theater = the.find("li", attrs={"class": "adds"})
+            msg += "===================="
+            msg += ("電影院： {}".format(theater.find("a").text))
+            # info裡面分別包含每一間戲院的場次資訊
+            info = the.find_all(class_="gabtn")
+            for i in info:
+                msg += (i["data-movie_time"])
+    else:
+        msg += ("抱歉！\n{} {} 沒有在{}的影廳播映\n請選擇其他[地區]、[時間]或[電影]".format(date, movie, city))
+        
+    return msg
 #=======================
 
 

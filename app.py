@@ -29,7 +29,8 @@ handler = WebhookHandler('110f9e33ec37530666ae272feca3aff7')
 
 # 自訂參數
 movie = ""
-date = []
+city = ""
+list_date = []
 list_city = []
 
 # 監聽所有來自 /callback 的 Post Request
@@ -51,7 +52,7 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global movie, date, list_city
+    global movie, city, date, list_city, list_date
     msg = event.message.text
     # if 'imagemap_message' in msg:
     #     message = imagemap_message()
@@ -83,13 +84,15 @@ def handle_message(event):
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in list_city: # 比對使用者是否輸入正確“地區” -> 回傳可看日期
-        message_sent = "msg in list_city " + movie #get_date(movie)
+        city = msg
+        message_sent, list_date = get_date(movie)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    # elif msg in date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
-    #     message_sent = "目前成功"
-    #     message = TextSendMessage(text=message_sent)
-    #     line_bot_api.reply_message(event.reply_token, message)
+    elif msg in list_date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
+        date = msg
+        message_sent = get_cinema_time(movie, city, date)
+        message = TextSendMessage(text=message_sent)
+        line_bot_api.reply_message(event.reply_token, message)
     elif 'emoji_test' == msg:
         message = TextSendMessage(text='$ LINE emoji $', emojis=emoji())
         line_bot_api.reply_message(event.reply_token, message)
