@@ -51,23 +51,24 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
-    if 'imagemap_message' in msg:
-        message = imagemap_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif 'buttons_message' in msg:
-        message = buttons_message()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif 'Confirm_Template' in msg:
-        message = Confirm_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif 'Carousel_Template' in msg:
-        message = Carousel_Template()
-        line_bot_api.reply_message(event.reply_token, message)
-    elif 'picture' in msg:
-        message = picture()
-        line_bot_api.reply_message(event.reply_token, message)
+    # if 'imagemap_message' in msg:
+    #     message = imagemap_message()
+    #     line_bot_api.reply_message(event.reply_token, message)
+    # elif 'buttons_message' in msg:
+    #     message = buttons_message()
+    #     line_bot_api.reply_message(event.reply_token, message)
+    # elif 'Confirm_Template' in msg:
+    #     message = Confirm_Template()
+    #     line_bot_api.reply_message(event.reply_token, message)
+    # elif 'Carousel_Template' in msg:
+    #     message = Carousel_Template()
+    #     line_bot_api.reply_message(event.reply_token, message)
+    # elif 'picture' in msg:
+    #     message = picture()
+    #     line_bot_api.reply_message(event.reply_token, message)
+
     # 我們自己的功能
-    elif '電影' == msg:
+    if '電影' == msg:
         message = choose_template()
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in choose():
@@ -76,7 +77,7 @@ def handle_message(event):
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in getAllMovie(): # 比對使用者是否輸入正確“電影” -> 回傳可看地區
         movie = msg
-        message_sent = "msg in getAllMovie() " + movie #get_city(msg)
+        message_sent = get_city(movie)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in get_city(movie): # 比對使用者是否輸入正確“地區” -> 回傳可看日期
