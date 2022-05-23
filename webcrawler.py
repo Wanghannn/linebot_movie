@@ -104,20 +104,20 @@ def get_cinema_time(movie, city, search_date):
     json_data = resp.json()
     soup = BeautifulSoup(json_data['view'], 'lxml')
     html_elem = soup.find_all("ul", attrs={'data-theater_name': re.compile(".*")})
-    msg = ""
+    msg = "===================="
     if html_elem:
         for the in html_elem:
             theater = the.find("li", attrs={"class": "adds"})
-            msg += "===================="
-            msg += ("電影院： {}".format(theater.find("a").text))
+            msg += ("\n電影院： {}".format(theater.find("a").text))
             # info裡面分別包含每一間戲院的場次資訊
             info = the.find_all(class_="gabtn")
             for i in info:
-                msg += (i["data-movie_time"])
+                msg += "\n" + (i["data-movie_time"])
+            msg += "\n===================="
     else:
-        msg += ("抱歉！\n{} {} 沒有在{}的影廳播映\n請選擇其他[地區]、[時間]或[電影]".format(date, movie, city))
+        msg += ("抱歉！\n{} {} 目前沒有在{}的影廳播映\n請選擇其他[地區]、[時間]或[電影]".format(date, movie, city))
         
-    return msg
+    return msg + "重置查詢請輸入:電影"
 #=======================
 
 

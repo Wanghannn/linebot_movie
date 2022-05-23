@@ -30,6 +30,7 @@ handler = WebhookHandler('110f9e33ec37530666ae272feca3aff7')
 # 自訂參數
 movie = ""
 city = ""
+date = ""
 list_date = []
 list_city = []
 
@@ -72,23 +73,33 @@ def handle_message(event):
 
     # 我們自己的功能
     if '電影' == msg:
+        # 重置查詢參數
+        movie = ""
+        city = ""
+        date = ""
         message = choose_template()
         line_bot_api.reply_message(event.reply_token, message)
     elif msg in choose():
         message_sent = choose_funtion(msg)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in getAllMovie(): # 比對使用者是否輸入正確“電影” -> 回傳全部地區（爬蟲有問題無法針對電影篩選）
+    elif msg in getAllMovie(): # 4-1 比對使用者是否輸入正確“電影” -> 回傳全部地區（爬蟲有問題無法針對電影篩選）
         movie = msg
-        message_sent, list_city = get_city_msg()
+        if movie != "" and city != "" and date != "":
+            message_sent = get_cinema_time(movie, city, date)
+        else:
+            message_sent, list_city = get_city_msg()
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in list_city: # 比對使用者是否輸入正確“地區” -> 回傳可看日期
+    elif msg in list_city: # 4-2 比對使用者是否輸入正確“地區” -> 回傳可看日期
         city = msg
-        message_sent, list_date = get_date(movie)
+        if movie != "" and city != "" and date != "":
+            message_sent = get_cinema_time(movie, city, date)
+        else:
+            message_sent, list_date = get_date(movie)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in list_date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
+    elif msg in list_date: # 4-3 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
         date = msg
         message_sent = get_cinema_time(movie, city, date)
         message = TextSendMessage(text=message_sent)
