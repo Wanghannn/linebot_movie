@@ -80,14 +80,14 @@ def handle_message(event):
         message_sent = get_city(movie)
         message = TextSendMessage(text=message_sent)
         line_bot_api.reply_message(event.reply_token, message)
-    elif msg in get_city(movie): # 比對使用者是否輸入正確“地區” -> 回傳可看日期
-        message_sent, date = "msg in get_city(movie) " + movie #get_date(movie)
-        message = TextSendMessage(text=message_sent)
-        line_bot_api.reply_message(event.reply_token, message)
-    elif msg in date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
-        message_sent = "目前成功"
-        message = TextSendMessage(text=message_sent)
-        line_bot_api.reply_message(event.reply_token, message)
+    # elif msg in get_city(movie): # 比對使用者是否輸入正確“地區” -> 回傳可看日期
+    #     message_sent, date = "msg in get_city(movie) " + movie #get_date(movie)
+    #     message = TextSendMessage(text=message_sent)
+    #     line_bot_api.reply_message(event.reply_token, message)
+    # elif msg in date: # 比對使用者是否輸入正確“日期” -> 回傳個影廳播映時間
+    #     message_sent = "目前成功"
+    #     message = TextSendMessage(text=message_sent)
+    #     line_bot_api.reply_message(event.reply_token, message)
     elif 'emoji_test' == msg:
         message = TextSendMessage(text='$ LINE emoji $', emojis=emoji())
         line_bot_api.reply_message(event.reply_token, message)

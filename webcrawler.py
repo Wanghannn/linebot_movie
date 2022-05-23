@@ -121,28 +121,28 @@ def get_city(movie):
         return "get_city() Error"
     # choose city
     # headers
-    # headers = {
-    #     'authority': 'movies.yahoo.com.tw',
-    #     'method': 'GET',
-    #     'path': '/api/v1/areas_by_movie_theater?movie_id=' + all_movie_id[movie],
-    #     'scheme': 'https',
-    #     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-    #     'accept-encoding': 'gzip, deflate, br',
-    #     'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6',
-    #     'cache-control': 'max-age=0',
-    #     'cookie': 'BX=fjkbgg9fb0c1k&b=3&s=ge; rxx=2iwvattyf9w.1x0bsdn3&v=1; A1=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw; A3=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw; GUC=AQEBAQFewRBfnkIiCgSc; A1S=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw&j=WORLD; yvapF=%7B%22vl%22%3A1%2C%22rvl%22%3A1%7D; avi=eyJpdiI6IjJ0S2U1NGNLRWthbDVuXC9scmFDV013PT0iLCJ2YWx1ZSI6IklDN0lLK01mR0JNVXNnZFFZRnRaTUE9PSIsIm1hYyI6IjVjOTBmMzI2YmNkMTMyMWU1NzFkZjA2OWZiOTMxY2U3ZmMwZDNjNmI0ZmI4OGJjZTNlM2ZlOGMyZTJiNDM4NTkifQ%3D%3D; browsed_movie=eyJpdiI6InlpR09JckVmTEZLZUh6amdYbVRNTVE9PSIsInZhbHVlIjoiXC9FSGRqUVhRY1FKY3puSTVCTXJhTFRDTG1iMGFHVVdUWVR4XC9ESHF0K1RlbnhrWVpyNTFkSDJScW5FamV5MmhaWEp2ZmJ2V3B3Skhka2owWWl6MGRaY1c0UHpJXC8zeXdXSUU1UjM1VnRSS3JTVnN2eStlM0ZHV0dWQnhjeTBrVVUiLCJtYWMiOiJlNmQ2NWY2Y2NjZWQ4YzMxZGYxZWI0MTI5ZTNiMGVmY2E5NWIwOTgyYmZlNDEzY2NmODVkZGU0MTlmY2Y0NmZkIn0%3D; cmp=t=1594541794&j=0',
-    #     'dnt': '1',
-    #     'mv-authorization': '21835b082e15b91a69b3851eec7b31b82ce82afb',
-    #     'referer': 'https://movies.yahoo.com.tw/',
-    #     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 Edg/83.0.478.56',
-    # }
-    # url = 'https://movies.yahoo.com.tw/api/v1/areas_by_movie_theater'
-    # payload = {'movie_id': all_movie_id[movie]}
-    # resp = requests.get(url, params=payload, headers=headers)
-    # msg = '請輸入想看電影的[地區]\n===================='
-    # for cities in resp.json():
-    #     msg += ("\n %s" % (cities['title'])) 
-    return all_movie_id[movie]   
+    headers = {
+        'authority': 'movies.yahoo.com.tw',
+        'method': 'GET',
+        'path': '/api/v1/areas_by_movie_theater?movie_id=' + all_movie_id[movie],
+        'scheme': 'https',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6',
+        'cache-control': 'max-age=0',
+        'cookie': 'BX=fjkbgg9fb0c1k&b=3&s=ge; rxx=2iwvattyf9w.1x0bsdn3&v=1; A1=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw; A3=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw; GUC=AQEBAQFewRBfnkIiCgSc; A1S=d=AQABBDQwsF4CEHDjEfJP3ksyjgDNeYJw0fkFEgEBAQEQwV6eX2BYb2UB_SMAAAcINDCwXoJw0fk&S=AQAAAg7KPjSv_-09B72obpPLkRw&j=WORLD; yvapF=%7B%22vl%22%3A1%2C%22rvl%22%3A1%7D; avi=eyJpdiI6IjJ0S2U1NGNLRWthbDVuXC9scmFDV013PT0iLCJ2YWx1ZSI6IklDN0lLK01mR0JNVXNnZFFZRnRaTUE9PSIsIm1hYyI6IjVjOTBmMzI2YmNkMTMyMWU1NzFkZjA2OWZiOTMxY2U3ZmMwZDNjNmI0ZmI4OGJjZTNlM2ZlOGMyZTJiNDM4NTkifQ%3D%3D; browsed_movie=eyJpdiI6InlpR09JckVmTEZLZUh6amdYbVRNTVE9PSIsInZhbHVlIjoiXC9FSGRqUVhRY1FKY3puSTVCTXJhTFRDTG1iMGFHVVdUWVR4XC9ESHF0K1RlbnhrWVpyNTFkSDJScW5FamV5MmhaWEp2ZmJ2V3B3Skhka2owWWl6MGRaY1c0UHpJXC8zeXdXSUU1UjM1VnRSS3JTVnN2eStlM0ZHV0dWQnhjeTBrVVUiLCJtYWMiOiJlNmQ2NWY2Y2NjZWQ4YzMxZGYxZWI0MTI5ZTNiMGVmY2E5NWIwOTgyYmZlNDEzY2NmODVkZGU0MTlmY2Y0NmZkIn0%3D; cmp=t=1594541794&j=0',
+        'dnt': '1',
+        'mv-authorization': '21835b082e15b91a69b3851eec7b31b82ce82afb',
+        'referer': 'https://movies.yahoo.com.tw/',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 Edg/83.0.478.56',
+    }
+    url = 'https://movies.yahoo.com.tw/api/v1/areas_by_movie_theater'
+    payload = {'movie_id': all_movie_id[movie]}
+    resp = requests.get(url, params=payload, headers=headers)
+    msg = '請輸入想看電影的[地區]\n===================='
+    for cities in resp.json():
+        msg += ("\n %s" % (cities['title'])) 
+    return msg   
 
 # 取得電影可看“日期”列表
 def get_date(movie):
