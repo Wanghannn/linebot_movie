@@ -3,8 +3,9 @@ from bs4 import BeautifulSoup
 
 #========本週新片======== https://movies.yahoo.com.tw/movie_thisweek.html
 
-def crawler(newmovie_list, page):
-    newmovie_re=requests.get('https://movies.yahoo.com.tw/movie_thisweek.html?page=' + str(page))
+def newmovie_crawler(newmovie_list, page):
+    global newmovie_dict
+    newmovie_re = requests.get('https://movies.yahoo.com.tw/movie_thisweek.html?page=' + str(page))
     newmovie_soup = BeautifulSoup(newmovie_re.text, 'html.parser')
     newmovie_spans = newmovie_soup.find_all('div', class_='release_info_text')
     for i in newmovie_spans:
@@ -12,18 +13,17 @@ def crawler(newmovie_list, page):
         newmovie_list.append(newmovie)
     if len(newmovie_soup.find_all('li', class_='nexttxt disabled')) == 0:
         page += 1
-        crawler(newmovie_list, page)
+        newmovie_crawler(newmovie_list, page)
     else:
-        newmovie_dict = dict(zip(list(range(1, 50)), newmovie_list))
-        return newmovie_dict
+        newmovie_dict = dict(zip(list(range(1, 21)), newmovie_list))
 
 def get_newmovie():
     msg = '以下是本週新片：\n（可直接輸入[電影ID]查詢場次）'
     #爬蟲爬出來
     # list_newmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     newmovie_list = []
-    list_newmovie = crawler(newmovie_list, 1)
-    list_item = list_newmovie.items()
+    newmovie_crawler(newmovie_list, 1)
+    list_item = newmovie_dict.items()
     for id, name in list_item:
         msg += ("\n[%s] %s" % (id, name)) 
     return msg
@@ -36,16 +36,15 @@ def get_rankmovie():
     #爬蟲爬出來
     # list_rankmovie = {'id:1':'奇異博士', 'id:2':'媽的多重宇宙', 'id:3':'...'}
     rank_list = []
-    re = requests.get('https://movies.yahoo.com.tw/chart.html')
-    soup = BeautifulSoup(re.text, 'html.parser')
-    spans = soup.find_all('div', class_='rank_list table rankstyle1')
-    for i in spans:
+    rank_re = requests.get('https://movies.yahoo.com.tw/chart.html')
+    rank_soup = BeautifulSoup(rank_re.text, 'html.parser')
+    rank_spans = rank_soup.find_all('div', class_='rank_list table rankstyle1')
+    for i in rank_spans:
         rank_first = i.find('h2')
         rank_others = i.find_all(class_='rank_txt')
     rank_list.append(rank_first.text.strip())
     rank_list += list(map(lambda rank_others: rank_others.text.strip(), rank_others))
     rank_dict = dict(zip(list(range(1, 21)), rank_list))
-    
     list_item = rank_dict.items()
     for id, name in list_item:
         msg += ("\n[%s] %s" % (id, name)) 
