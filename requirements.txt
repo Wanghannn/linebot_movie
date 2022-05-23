@@ -5,6 +5,7 @@ bs4
 requests
 useragent
 fake-useragent
+lxml
 # defaultdict
 # collections
 # re
